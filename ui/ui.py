@@ -5,6 +5,10 @@ hostName = "localhost"
 serverPort = 8080
 
 class Controller(BaseHTTPRequestHandler):
+
+    def __init__(self):
+        pass
+
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
