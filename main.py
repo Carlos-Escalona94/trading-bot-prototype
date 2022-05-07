@@ -3,9 +3,14 @@ import MetaTrader5 as mt
 import pandas as pd
 import plotly.express as px
 import ui
+import providers
+import asyncio
 
-def main():
-    print(ui.hostName)
+async def main():
+    providers.envFileReaderProvider.read()
+    tuple = providers.getLoginMock()
+    print(tuple)
+    ui.app.run(debug=True)
     # mt.initialize()
 
     # login = 0
@@ -41,4 +46,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import time
+    s = time.perf_counter()
+    asyncio.run(main())
+    elapsed = time.perf_counter() - s
+    print(f"{__file__} executed in {elapsed:0.2f} seconds.")
