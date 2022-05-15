@@ -1,16 +1,28 @@
 from datetime import datetime
-import MetaTrader5 as mt
+import multiprocessing
 import pandas as pd
 import plotly.express as px
 import ui
 import providers
 import asyncio
+import tradingplatform
+import app
 
 async def main():
     providers.envFileReaderProvider.read()
-    tuple = providers.getLoginMock()
+    tuple = providers.getLogin()
     print(tuple)
-    ui.app.run(debug=True)
+    
+    bot = app.bot()
+    tradingplatform.teste()
+
+
+    botProcess = multiprocessing.Process(target=bot.run, args=())
+    botProcess.start()
+
+
+    uiProcess = multiprocessing.Process(target=ui.app.run, args=(), kwargs={'debug':False, 'use_reloader': False})
+    uiProcess.start()
     # mt.initialize()
 
     # login = 0

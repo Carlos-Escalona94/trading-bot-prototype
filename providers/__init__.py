@@ -1,2 +1,2 @@
-from .loginProvider import getLoginMock
+from .loginProvider import getLoginMock as getLogin
 from .envFileReaderProvider import read
